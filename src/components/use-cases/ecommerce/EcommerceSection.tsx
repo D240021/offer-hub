@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 import EcommerceHero from "./EcommerceHero";
-import EcommerceEscrowFlowDiagram from "./EscrowFlowDiagram";
+import EscrowFlowDiagram from "../shared/EscrowFlowDiagram";
+import { ESCROW_STEPS } from "./escrow-steps";
 import EcommerceCodeIntegrationShowcase from "./CodeIntegrationShowcase";
 import {
   featureCards,
@@ -45,7 +46,7 @@ export default function EcommerceSection({
       </MetricsSection>
 
       <ArchitectureSection>
-        <EcommerceEscrowFlowDiagram />
+        <EscrowFlowDiagram steps={ESCROW_STEPS} />
       </ArchitectureSection>
 
       <SdkSection>

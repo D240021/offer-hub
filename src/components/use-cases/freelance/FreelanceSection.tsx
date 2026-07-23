@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 import FreelanceHero from "./FreelanceHero";
-import FreelanceEscrowFlowDiagram from "./EscrowFlowDiagram";
+import EscrowFlowDiagram from "../shared/EscrowFlowDiagram";
+import { ESCROW_STEPS } from "./escrow-steps";
 import FreelanceCodeIntegrationShowcase from "./CodeIntegrationShowcase";
 import {
   featureCards,
@@ -48,7 +49,7 @@ export default function FreelanceSection({
       </MetricsSection>
 
       <ArchitectureSection>
-        <FreelanceEscrowFlowDiagram />
+        <EscrowFlowDiagram steps={ESCROW_STEPS} />
       </ArchitectureSection>
 
       <SdkSection>

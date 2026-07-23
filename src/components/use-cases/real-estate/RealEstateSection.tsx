@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 import RealEstateHero from "./RealEstateHero";
-import RealEstateEscrowFlowDiagram from "./EscrowFlowDiagram";
+import EscrowFlowDiagram from "../shared/EscrowFlowDiagram";
+import { ESCROW_STEPS } from "./escrow-steps";
 import RealEstateCodeIntegrationShowcase from "./CodeIntegrationShowcase";
 import {
   featureCards,
@@ -45,7 +46,7 @@ export default function RealEstateSection({
       </MetricsSection>
 
       <ArchitectureSection>
-        <RealEstateEscrowFlowDiagram />
+        <EscrowFlowDiagram steps={ESCROW_STEPS} />
       </ArchitectureSection>
 
       <SdkSection>

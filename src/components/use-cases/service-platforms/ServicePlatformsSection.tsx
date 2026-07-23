@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 import ServicePlatformsHero from "./ServicePlatformsHero";
-import ServicePlatformsEscrowFlowDiagram from "./EscrowFlowDiagram";
+import EscrowFlowDiagram from "../shared/EscrowFlowDiagram";
+import { ESCROW_STEPS } from "./escrow-steps";
 import ServicePlatformsCodeIntegrationShowcase from "./CodeIntegrationShowcase";
 import {
   featureCards,
@@ -46,7 +47,7 @@ export default function ServicePlatformsSection({
       </MetricsSection>
 
       <ArchitectureSection>
-        <ServicePlatformsEscrowFlowDiagram />
+        <EscrowFlowDiagram steps={ESCROW_STEPS} />
       </ArchitectureSection>
 
       <SdkSection>

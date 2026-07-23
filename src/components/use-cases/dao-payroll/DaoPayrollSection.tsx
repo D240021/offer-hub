@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 import DaoPayrollHero from "./DaoPayrollHero";
-import DaoPayrollEscrowFlowDiagram from "./EscrowFlowDiagram";
+import EscrowFlowDiagram from "../shared/EscrowFlowDiagram";
+import { ESCROW_STEPS } from "./escrow-steps";
 import DaoPayrollCodeIntegrationShowcase from "./CodeIntegrationShowcase";
 import {
   featureCards,
@@ -45,7 +46,7 @@ export default function DaoPayrollSection({
       </MetricsSection>
 
       <ArchitectureSection>
-        <DaoPayrollEscrowFlowDiagram />
+        <EscrowFlowDiagram steps={ESCROW_STEPS} />
       </ArchitectureSection>
 
       <SdkSection>

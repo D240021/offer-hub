@@ -17,7 +17,7 @@ type SectionNavProps = {
   ariaLabel?: string;
 };
 
-export default function SectionNav({
+export function SectionNav({
   sections,
   layoutId,
   scrollMarginPx,

@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { CodeBlock } from "./CodeBlock";
 import { Callout } from "./Callout";
 import { CommandLine } from "./CommandLine";
-import { Badge } from "./Badge";
+import { Badge, type BadgeProps } from "@/components/ui/Badge";
 import { MermaidDiagram } from "@/components/shared/MermaidDiagram";
 import { BASE_MDX_COMPONENTS } from "@/components/mdx/base-mdx-components";
 
@@ -14,7 +14,8 @@ export const MDX_COMPONENTS: MDXComponents = {
   CodeBlock,
   Callout,
   CommandLine,
-  Badge,
+  // Docs prose uses the compact square badge next to endpoint paths and assets
+  Badge: (props: BadgeProps) => <Badge shape="square" {...props} />,
   MermaidDiagram,
 
   // Blockquote → Callout note (docs-specific override of base)

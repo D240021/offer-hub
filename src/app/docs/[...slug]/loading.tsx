@@ -1,13 +1,16 @@
+import { Skeleton } from "@/components/ui/Skeleton";
+import { SkeletonLines } from "@/components/ui/skeletons";
+
 function DocHeaderSkeleton() {
   return (
-    <div className="mb-8 pb-6 border-b border-[#d1d5db]/40">
+    <div className="mb-8 pb-6 border-b border-theme-border">
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-        <div className="flex-1 animate-pulse">
+        <div className="flex-1">
           {/* h1 */}
-          <div className="h-9 w-3/4 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded-xl shadow-raised mb-3" />
+          <Skeleton className="h-9 w-3/4 rounded-xl mb-3" />
           {/* description */}
-          <div className="h-5 w-full bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded mb-1.5" />
-          <div className="h-5 w-4/5 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
+          <Skeleton className="h-5 w-full rounded mb-1.5" />
+          <Skeleton className="h-5 w-4/5 rounded" />
         </div>
       </div>
     </div>
@@ -16,42 +19,35 @@ function DocHeaderSkeleton() {
 
 function DocContentSkeleton() {
   return (
-    <div className="animate-pulse space-y-5">
+    <div className="space-y-5">
       {/* Opening paragraph */}
       <div className="space-y-2">
-        <div className="h-4 w-full bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-        <div className="h-4 w-5/6 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-        <div className="h-4 w-full bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-        <div className="h-4 w-3/4 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
+        <SkeletonLines className="rounded" widths={["w-full", "w-5/6", "w-full", "w-3/4"]} />
       </div>
 
       {/* Section heading + paragraph */}
       <div className="pt-3 space-y-3">
-        <div className="h-7 w-56 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded-lg shadow-raised" />
+        <Skeleton className="h-7 w-56" />
         <div className="space-y-2">
-          <div className="h-4 w-full bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-          <div className="h-4 w-5/6 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-          <div className="h-4 w-full bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
+          <SkeletonLines className="rounded" widths={["w-full", "w-5/6", "w-full"]} />
         </div>
       </div>
 
       {/* Code block */}
-      <div className="rounded-2xl bg-[#e5e7eb] dark:bg-[#1e2a4a] shadow-raised p-5 my-2">
+      <div className="rounded-2xl bg-bg-sunken shadow-neu-sunken p-5 my-2">
         <div className="space-y-2">
-          {[90, 70, 55, 80, 65, 75].map((pct, i) => (
-            <div key={i} className="h-4 bg-[#d1d5db] dark:bg-[#3d3d5c] rounded" style={{ width: `${pct}%` }} />
-          ))}
+          <SkeletonLines
+            className="rounded"
+            widths={["w-[90%]", "w-[70%]", "w-[55%]", "w-[80%]", "w-[65%]", "w-[75%]"]}
+          />
         </div>
       </div>
 
       {/* Second section heading + paragraph */}
       <div className="pt-3 space-y-3">
-        <div className="h-7 w-44 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded-lg shadow-raised" />
+        <Skeleton className="h-7 w-44" />
         <div className="space-y-2">
-          <div className="h-4 w-full bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-          <div className="h-4 w-3/4 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-          <div className="h-4 w-5/6 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-          <div className="h-4 w-2/3 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
+          <SkeletonLines className="rounded" widths={["w-full", "w-3/4", "w-5/6", "w-2/3"]} />
         </div>
       </div>
 
@@ -59,17 +55,15 @@ function DocContentSkeleton() {
       <div className="space-y-2.5 pl-4">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="flex items-start gap-3">
-            <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#d1d5db] dark:bg-[#3d3d5c] shrink-0" />
-            <div className="h-4 w-4/5 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
+            <Skeleton className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" />
+            <Skeleton className="h-4 w-4/5 rounded" />
           </div>
         ))}
       </div>
 
       {/* Closing paragraph */}
       <div className="pt-2 space-y-2">
-        <div className="h-4 w-full bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-        <div className="h-4 w-5/6 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
-        <div className="h-4 w-3/5 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded" />
+        <SkeletonLines className="rounded" widths={["w-full", "w-5/6", "w-3/5"]} />
       </div>
     </div>
   );
@@ -77,8 +71,8 @@ function DocContentSkeleton() {
 
 function DocFooterSkeleton() {
   return (
-    <div className="mt-8 pt-6 border-t border-[#d1d5db]">
-      <div className="h-4 w-44 bg-[#e5e7eb] dark:bg-[#1e2a4a] rounded animate-pulse" />
+    <div className="mt-8 pt-6 border-t border-theme-border">
+      <Skeleton className="h-4 w-44 rounded" />
     </div>
   );
 }

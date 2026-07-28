@@ -2,7 +2,13 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import { TOP_PROGRESS_GRADIENT, TopProgressBar } from "@/components/ui/TopProgressBar";
 
+/**
+ * Route-change progress, mounted once in the root layout. Starts when an
+ * internal link is clicked and completes when the new route commits. For
+ * per-page reading progress see `LoadingBar`.
+ */
 export function NavigationProgress() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -96,12 +102,12 @@ export function NavigationProgress() {
   }
 
   return (
-    <div
-      className="fixed top-0 left-0 right-0 h-[3px] z-[9999] pointer-events-none"
+    <TopProgressBar
+      className="pointer-events-none"
       style={{ opacity: isLoading ? 1 : 0, transition: "opacity 0.2s" }}
     >
       <div
-        className="h-full bg-gradient-to-r from-[#149A9B] to-[#22e0e2]"
+        className={`h-full ${TOP_PROGRESS_GRADIENT}`}
         style={{
           width: `${progress}%`,
           transition: progress === 100 ? "width 0.1s ease-out" : "width 0.4s ease",
@@ -115,6 +121,6 @@ export function NavigationProgress() {
           transform: `translateX(${progress < 100 ? 0 : 100}%)`,
         }}
       />
-    </div>
+    </TopProgressBar>
   );
 }

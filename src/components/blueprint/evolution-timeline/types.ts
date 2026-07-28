@@ -1,4 +1,5 @@
 import type { ElementType } from "react";
+import type { StatusTone } from "@/lib/status-colors";
 
 export type PhaseStatus = "completed" | "in-progress" | "planned";
 export type PhaseDomain = "core" | "sdk" | "qa" | "crypto";
@@ -24,10 +25,7 @@ export interface Phase {
 
 export interface StatusConfig {
   icon: ElementType;
-  color: string;
-  bg: string;
-  border: string;
   label: string;
-  dotColor: string;
-  dotBg: string;
+  /** Key into the shared `statusColors` palette. */
+  tone: StatusTone;
 }

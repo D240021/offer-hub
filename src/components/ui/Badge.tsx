@@ -1,46 +1,51 @@
-import React from 'react';
-import { cn } from '@/lib/cn';
+import type { CSSProperties, ReactNode } from "react";
+import { cn } from "@/lib/cn";
+import { statusColors, type StatusTone } from "@/lib/status-colors";
 
-type BadgeVariant = 'easy' | 'medium' | 'hard' | 'feature' | 'fix' | 'breaking' | 'new';
+export type BadgeShape = "pill" | "square";
 
-interface BadgeProps {
-  variant: BadgeVariant;
-  label?: string;
+export interface BadgeProps {
+  variant?: StatusTone;
+  shape?: BadgeShape;
+  /** Hairline border in the variant color. */
+  bordered?: boolean;
+  /** Neumorphic lift. Turn off for badges nested inside an already raised card. */
+  elevated?: boolean;
   className?: string;
+  children: ReactNode;
 }
 
-const variantStyles: Record<BadgeVariant, string> = {
-  easy: 'bg-theme-success/12 text-theme-success',
-  medium: 'bg-theme-warning/12 text-theme-warning',
-  hard: 'bg-theme-error/12 text-theme-error',
-  feature: 'bg-theme-primary/12 text-theme-primary',
-  new: 'bg-theme-primary/12 text-theme-primary',
-  fix: 'bg-content-muted/12 text-content-secondary',
-  breaking: 'bg-theme-error/15 text-theme-error border border-theme-error/20',
+const SHAPE_STYLES: Record<BadgeShape, string> = {
+  pill: "rounded-full px-2.5 py-0.5",
+  square: "rounded-md px-2 py-0.5",
 };
 
-const defaultLabels: Record<BadgeVariant, string> = {
-  easy: 'Easy',
-  medium: 'Medium',
-  hard: 'Hard',
-  feature: 'Feature',
-  new: 'New',
-  fix: 'Fix',
-  breaking: 'Breaking',
-};
+export function Badge({
+  variant = "neutral",
+  shape = "pill",
+  bordered = false,
+  elevated = true,
+  className,
+  children,
+}: BadgeProps) {
+  const colors = statusColors[variant];
 
-export const Badge: React.FC<BadgeProps> = ({ variant, label, className }) => {
-  const displayLabel = label ?? defaultLabels[variant];
+  const style: CSSProperties = { color: colors.solid, background: colors.tint };
+  if (bordered) {
+    style.border = `1px solid ${colors.border}`;
+  }
 
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium shadow-neu-raised-sm',
-        variantStyles[variant],
-        className
+        "inline-flex items-center text-xs font-semibold",
+        SHAPE_STYLES[shape],
+        elevated && "shadow-neu-raised-sm",
+        className,
       )}
+      style={style}
     >
-      {displayLabel}
+      {children}
     </span>
   );
-};
+}

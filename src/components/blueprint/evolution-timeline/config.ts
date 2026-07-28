@@ -15,37 +15,12 @@ export const DOMAINS: { key: "all" | PhaseDomain; label: string }[] = [
   { key: "crypto", label: "Crypto-Native (Phase 10)" },
 ];
 
+const STATUS_CONFIG: Record<PhaseStatus, StatusConfig> = {
+  completed: { icon: CheckCircle2, label: "Completed", tone: "success" },
+  "in-progress": { icon: Loader2, label: "In Progress", tone: "primary" },
+  planned: { icon: Lock, label: "Planned", tone: "neutral" },
+};
+
 export function statusConfig(status: PhaseStatus): StatusConfig {
-  switch (status) {
-    case "completed":
-      return {
-        icon: CheckCircle2,
-        color: "text-[var(--color-success)]",
-        bg: "bg-[var(--color-success)]/10",
-        border: "border-[var(--color-success)]/30",
-        label: "Completed",
-        dotColor: "#16a34a",
-        dotBg: "bg-[var(--color-success)]",
-      };
-    case "in-progress":
-      return {
-        icon: Loader2,
-        color: "text-[var(--color-primary)]",
-        bg: "bg-[var(--color-primary)]/10",
-        border: "border-[var(--color-primary)]/40",
-        label: "In Progress",
-        dotColor: "var(--color-primary)",
-        dotBg: "bg-[var(--color-primary)]",
-      };
-    case "planned":
-      return {
-        icon: Lock,
-        color: "text-[var(--color-text-muted)]",
-        bg: "bg-[var(--color-text-muted)]/10",
-        border: "border-[var(--color-text-muted)]/20",
-        label: "Planned",
-        dotColor: "var(--color-text-muted)",
-        dotBg: "bg-[var(--color-text-muted)]",
-      };
-  }
+  return STATUS_CONFIG[status];
 }

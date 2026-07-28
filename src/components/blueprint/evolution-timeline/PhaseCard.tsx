@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import { statusColors } from "@/lib/status-colors";
 import { NEU_ELEVATED, NEU_SUNKEN, statusConfig } from "./config";
 import type { Phase } from "./types";
 
@@ -16,6 +18,7 @@ export function PhaseCard({ phase, index, isLeft }: PhaseCardProps) {
   const [expanded, setExpanded] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const cfg = statusConfig(phase.status);
+  const colors = statusColors[cfg.tone];
   const Icon = phase.icon;
   const StatusIcon = cfg.icon;
 
@@ -42,7 +45,7 @@ export function PhaseCard({ phase, index, isLeft }: PhaseCardProps) {
           ${isPlanned ? NEU_SUNKEN + " opacity-70" : NEU_ELEVATED}
           ${
             isInProgress
-              ? cfg.border
+              ? "border-[var(--color-primary)]/40"
               : isCompleted
               ? "border-[var(--color-success)]/20"
               : "border-[var(--color-border)]"
@@ -66,9 +69,10 @@ export function PhaseCard({ phase, index, isLeft }: PhaseCardProps) {
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex items-center gap-3">
               <span
-                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${cfg.bg} ${NEU_SUNKEN}`}
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${NEU_SUNKEN}`}
+                style={{ background: colors.tint }}
               >
-                <Icon size={17} className={cfg.color} />
+                <Icon size={17} style={{ color: colors.solid }} />
               </span>
 
               <div className="min-w-0">
@@ -86,12 +90,15 @@ export function PhaseCard({ phase, index, isLeft }: PhaseCardProps) {
               </div>
             </div>
 
-            <span
-              className={`flex shrink-0 items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-semibold ${cfg.bg} ${cfg.border} ${cfg.color}`}
+            <Badge
+              variant={cfg.tone}
+              bordered
+              elevated={false}
+              className="shrink-0 gap-1 py-1 text-[11px]"
             >
               <StatusIcon size={11} className={isInProgress ? "animate-spin" : ""} />
               {cfg.label}
-            </span>
+            </Badge>
           </div>
 
           <p className="mt-3 text-[13px] leading-relaxed text-content-secondary">{phase.goal}</p>
@@ -99,7 +106,9 @@ export function PhaseCard({ phase, index, isLeft }: PhaseCardProps) {
           <div className="mt-4">
             <div className="mb-1.5 flex items-center justify-between">
               <span className="text-[11px] text-content-muted">Completion</span>
-              <span className={`text-[12px] font-bold ${cfg.color}`}>{phase.completion}%</span>
+              <span className="text-[12px] font-bold" style={{ color: colors.solid }}>
+                {phase.completion}%
+              </span>
             </div>
             <div className={`h-2 w-full overflow-hidden rounded-full ${NEU_SUNKEN}`}>
               <motion.div
@@ -119,7 +128,8 @@ export function PhaseCard({ phase, index, isLeft }: PhaseCardProps) {
           </div>
 
           <button
-            className={`mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-[12px] font-medium transition-colors ${cfg.bg} ${cfg.color} hover:brightness-110`}
+            className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-[12px] font-medium transition-colors hover:brightness-110"
+            style={{ background: colors.tint, color: colors.solid }}
             onClick={(e) => {
               e.stopPropagation();
               setExpanded((v) => !v);

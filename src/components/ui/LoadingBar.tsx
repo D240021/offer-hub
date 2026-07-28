@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/cn";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { TOP_PROGRESS_GRADIENT, TopProgressBar } from "@/components/ui/TopProgressBar";
 
+/**
+ * Reading progress for a single page: plays a short intro fill on mount, then
+ * mirrors how far down the document the visitor has scrolled. Opt in per page.
+ * For route-change feedback see `NavigationProgress`, mounted in the layout.
+ */
 export function LoadingBar() {
     const [progress, setProgress] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -24,8 +31,8 @@ export function LoadingBar() {
     }, [isLoading, scrollY]);
 
     return (
-        <div
-            className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#149A9B] to-[#22e0e2] z-[9999] origin-left"
+        <TopProgressBar
+            className={cn(TOP_PROGRESS_GRADIENT, "origin-left")}
             style={{ transform: `scaleX(${progress})`, transition: isLoading ? "transform 0.4s ease" : "none" }}
         />
     );

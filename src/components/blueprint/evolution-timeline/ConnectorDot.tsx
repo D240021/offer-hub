@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { statusColors } from "@/lib/status-colors";
 import { NEU_ELEVATED, statusConfig } from "./config";
 import type { Phase } from "./types";
 
@@ -11,7 +12,7 @@ interface ConnectorDotProps {
 }
 
 export function ConnectorDot({ phase, index }: ConnectorDotProps) {
-  const cfg = statusConfig(phase.status);
+  const colors = statusColors[statusConfig(phase.status).tone];
   const isInProgress = phase.status === "in-progress";
   const shouldReduceMotion = useReducedMotion();
 
@@ -26,18 +27,19 @@ export function ConnectorDot({ phase, index }: ConnectorDotProps) {
       <div
         className={`flex h-7 w-7 items-center justify-center rounded-full border-2 ${NEU_ELEVATED}`}
         style={{
-          borderColor: cfg.dotColor,
+          borderColor: colors.solid,
           background: "var(--color-bg-base)",
         }}
       >
         {isInProgress ? (
           <motion.div
-            className={`h-3 w-3 rounded-full ${cfg.dotBg}`}
+            className="h-3 w-3 rounded-full"
+            style={{ background: colors.solid }}
             animate={shouldReduceMotion ? {} : { scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           />
         ) : (
-          <div className={`h-3 w-3 rounded-full ${cfg.dotBg}`} />
+          <div className="h-3 w-3 rounded-full" style={{ background: colors.solid }} />
         )}
       </div>
     </motion.div>

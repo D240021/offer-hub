@@ -1,6 +1,8 @@
 "use client";
 
 import { ExternalLink, GitPullRequestArrow } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import type { StatusTone } from "@/lib/status-colors";
 
 export type Difficulty = "easy" | "medium" | "hard";
 
@@ -13,25 +15,10 @@ export interface IssueCardProps {
   createdAt: string;
 }
 
-const difficultyConfig: Record<
-  Difficulty,
-  { label: string; color: string; bg: string }
-> = {
-  easy: {
-    label: "Easy",
-    color: "#16a34a",
-    bg: "rgba(22,163,74,0.1)",
-  },
-  medium: {
-    label: "Medium",
-    color: "#d97706",
-    bg: "rgba(217,119,6,0.1)",
-  },
-  hard: {
-    label: "Hard",
-    color: "#dc2626",
-    bg: "rgba(220,38,38,0.1)",
-  },
+const difficultyConfig: Record<Difficulty, { label: string; tone: StatusTone }> = {
+  easy: { label: "Easy", tone: "success" },
+  medium: { label: "Medium", tone: "warning" },
+  hard: { label: "Hard", tone: "danger" },
 };
 
 export function IssueCard({
@@ -63,12 +50,9 @@ export function IssueCard({
             {title}
           </a>
         </div>
-        <span
-          className="inline-flex shrink-0 items-center rounded-full px-2.5 py-1 text-xs font-semibold"
-          style={{ background: diff.bg, color: diff.color }}
-        >
+        <Badge variant={diff.tone} elevated={false} className="shrink-0 py-1">
           {diff.label}
-        </span>
+        </Badge>
       </div>
 
       {labels.length > 0 && (

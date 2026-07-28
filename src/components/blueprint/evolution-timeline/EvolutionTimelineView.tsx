@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { statusColors } from "@/lib/status-colors";
 import { DOMAINS, NEU_ELEVATED, NEU_SUNKEN, statusConfig } from "./config";
 import { PHASES } from "./evolution-timeline.data";
 import { ConnectorDot } from "./ConnectorDot";
@@ -163,13 +164,17 @@ export function EvolutionTimelineView() {
           ].map(({ status, desc }) => {
             const cfg = statusConfig(status);
             const StatusIcon = cfg.icon;
+            const solid = statusColors[cfg.tone].solid;
             return (
               <span key={status} className="flex items-center gap-2">
                 <StatusIcon
                   size={13}
-                  className={`${cfg.color} ${status === "in-progress" ? "animate-spin" : ""}`}
+                  className={status === "in-progress" ? "animate-spin" : ""}
+                  style={{ color: solid }}
                 />
-                <span className={`${cfg.color} font-medium`}>{cfg.label}</span>
+                <span className="font-medium" style={{ color: solid }}>
+                  {cfg.label}
+                </span>
                 <span>- {desc}</span>
               </span>
             );

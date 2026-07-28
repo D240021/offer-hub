@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { Badge } from "@/components/ui/Badge";
 import { buildPageMetadata } from "@/lib/seo";
 import { fetchChangelogEntries } from "@/services/github";
 
@@ -89,11 +90,12 @@ export default async function ChangelogPage() {
                           <span className="text-2xl font-black text-content-primary tracking-tight group-hover:text-theme-primary transition-colors">
                             {entry.version}
                           </span>
-                          <span
-                            className={`${entry.badgeColor} text-[9px] uppercase font-black px-3 py-1 rounded-full tracking-widest shadow-neu-raised-sm`}
+                          <Badge
+                            variant={entry.badgeTone}
+                            className="text-[9px] uppercase font-black px-3 py-1 tracking-widest"
                           >
                             {entry.badge}
-                          </span>
+                          </Badge>
                         </div>
                         <span className="text-xs font-black text-content-secondary block md:hidden uppercase tracking-widest opacity-60">
                           {entry.date}

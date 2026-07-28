@@ -1,4 +1,5 @@
 import type { PullRequestData } from "@/components/community/RecentPRsSection";
+import type { StatusTone } from "@/lib/status-colors";
 
 /* -------------------------------------------------------------------------- */
 /*                              Public data shapes                             */
@@ -39,7 +40,7 @@ export interface ChangelogEntry {
   date: string;
   title: string;
   badge: string;
-  badgeColor: string;
+  badgeTone: StatusTone;
   description: string;
   changes: string[];
 }
@@ -284,25 +285,16 @@ function parseReleaseBody(body: string | null): Pick<ChangelogEntry, "descriptio
   };
 }
 
-function getReleaseBadge(release: Pick<GitHubRelease, "draft" | "prerelease">): Pick<ChangelogEntry, "badge" | "badgeColor"> {
+function getReleaseBadge(release: Pick<GitHubRelease, "draft" | "prerelease">): Pick<ChangelogEntry, "badge" | "badgeTone"> {
   if (release.draft) {
-    return {
-      badge: "Draft",
-      badgeColor: "bg-content-secondary/10 text-content-secondary",
-    };
+    return { badge: "Draft", badgeTone: "neutral" };
   }
 
   if (release.prerelease) {
-    return {
-      badge: "Pre-release",
-      badgeColor: "bg-theme-warning/10 text-theme-warning",
-    };
+    return { badge: "Pre-release", badgeTone: "warning" };
   }
 
-  return {
-    badge: "Release",
-    badgeColor: "bg-theme-success/10 text-theme-success",
-  };
+  return { badge: "Release", badgeTone: "success" };
 }
 
 function mapReleaseToEntry(release: GitHubRelease): ChangelogEntry {

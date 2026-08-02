@@ -1,5 +1,7 @@
 import type { PullRequestData } from "@/components/community/RecentPRsSection";
 import type { StatusTone } from "@/lib/status-colors";
+import { logger } from '@/utils/logger';
+
 
 /* -------------------------------------------------------------------------- */
 /*                              Public data shapes                             */
@@ -219,7 +221,7 @@ export async function fetchCommunityData() {
 
     return processGitHubData(validData);
   } catch (error) {
-    console.error('Error fetching GitHub data:', error);
+    logger.error('Error fetching GitHub data:', error);
     return {
       stats: null,
       contributors: [],
@@ -331,7 +333,7 @@ export async function fetchChangelogEntries(): Promise<{ entries: ChangelogEntry
       hasError: false,
     };
   } catch (error) {
-    console.error("Failed to fetch GitHub releases:", error);
+    logger.error("Failed to fetch GitHub releases:", error);
     return { entries: [], hasError: true };
   }
 }
